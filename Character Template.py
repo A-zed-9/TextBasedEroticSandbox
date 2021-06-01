@@ -8,15 +8,15 @@ dialogue_dictionary = {
     "Topic": {
         "condition == bool": "print(\"Text you want the character to say goes inside of the parentheses\".)\nprint("
                              "\"You can use as many print statements or other function calls on the same line (you "
-                             "can also use /n for multi line dialogue instead of a new print statement. And \' can be "
-                             "used for apostrophes as long as one uses quotations marks as shown here.))",
-        "condition != \"non-bool\" and condition2 == \"additional value\"": "print(\"Whichever response evaluates as true "
+                             "can also use \\n for multi line dialogue instead of a new print statement. And ' can be "
+                             "used for apostrophes as long as one uses quotation marks as shown here.))",
+        "condition != \"string\" and condition2 == additional value": "print(\"Whichever response evaluates as true "
                                                                             "first (from the top) will be the only "
                                                                             "one used. No two conditions can be "
                                                                             "exactly the same. (You can have "
-                                                                            "\"friendship > 0\" and \"friendship > 0 "
-                                                                            "and romance > 0\" but not \"friendship > "
-                                                                            "0\" and \"friendship > 0\"). To use "
+                                                                            "friendship > 0 and friendship > 0 "
+                                                                            "and romance > 0 but not friendship > "
+                                                                            "0 and friendship > 0). To use "
                                                                             "character stats or other character "
                                                                             "related data self. must be prefixed to "
                                                                             "the condition (such as self.friendship > "
