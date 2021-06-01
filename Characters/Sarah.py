@@ -9,7 +9,7 @@ dialogue_dictionary = {
         "True": "print(\"I like to spend my weekends out, I'm sure you'll catch me at one of the bars around here if you like "
                 "to dance.\") ",
     },
-    "Hold Hands": {
+    "Holding Hands": {
         "self.friendship >= 10 or self.romance >= 5": 'print(\"I\'d love to hold your hand!\")\nself.hold_hands()',
         "True": "print(\"I'd rather not hold your hand.\")"
     }
