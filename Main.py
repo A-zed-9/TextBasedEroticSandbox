@@ -80,6 +80,8 @@ class NPC:
         self.stats_dictionary = get_from_module(name, 'Characters', "stats_dictionary")
         for stat in self.stats_dictionary:
             exec('self.' + stat + ' = ' + str(self.stats_dictionary[stat]))
+        # Sates
+        self.holding_hands = "False"
 
     def Talk(self, topic):
         for condition in self.dialogue_dictionary[topic]:
@@ -89,8 +91,20 @@ class NPC:
                     topic = check_input(self.dialogue_continue, self.dialogue_topics)
                     self.Talk(topic=topic)
 
-    def hold_hands(self):
-        print("You are now holding hands with " + self.name + ".")
+    def hold_hands(self, approval=None, stop=None):
+        while True:
+            if self.holding_hands and not stop:
+                return print("You are already holding hands with " + self.name)
+            elif self.holding_hands and stop:
+                return print("You are no longer holding hands with " + self.name)
+            elif not self.holding_hands:
+                if approval:
+                    return print("You are now holding hands with " + self.name + ".")
+                elif not approval:
+                    if check_input("Do it anyway?", yesno) == "Yes":
+                        print("You grab " + self.name + "'s hand she tries to move it away but you hold on.")
+                    else:
+                        return print("You don't hold hands with " + self.name)
 
 
 initialize_characters()
