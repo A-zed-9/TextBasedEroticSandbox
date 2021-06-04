@@ -11,16 +11,16 @@ dialogue_dictionary = {
                              "can also use \\n for multi line dialogue instead of a new print statement. And ' can be "
                              "used for apostrophes as long as one uses quotation marks as shown here.))",
         "condition != \"string\" and condition2 == additional value": "print(\"Whichever response evaluates as true "
-                                                                            "first (from the top) will be the only "
-                                                                            "one used. No two conditions can be "
-                                                                            "exactly the same. (You can have "
-                                                                            "friendship > 0 and friendship > 0 "
-                                                                            "and romance > 0 but not friendship > "
-                                                                            "0 and friendship > 0). To use "
-                                                                            "character stats or other character "
-                                                                            "related data self. must be prefixed to "
-                                                                            "the condition (such as self.friendship > "
-                                                                            "0).)\") ",
+                                                                      "first (from the top) will be the only "
+                                                                      "one used. No two conditions can be "
+                                                                      "exactly the same. (You can have "
+                                                                      "friendship > 0 and friendship > 0 "
+                                                                      "and romance > 0 but not friendship > "
+                                                                      "0 and friendship > 0). To use "
+                                                                      "character stats or other character "
+                                                                      "related data self. must be prefixed to "
+                                                                      "the condition (such as self.friendship > "
+                                                                      "0).)\") ",
         "condition == value": "self.function(\"parameter1\",\"parameter2\")\nprint(\"Functions, including character "
                               "methods (denoted by self.) can be called along side dialogue. For example this can be "
                               "used to call actions or change a characters stats.\")",
