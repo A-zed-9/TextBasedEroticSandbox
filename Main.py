@@ -1,6 +1,7 @@
 # Imports
 import importlib
 import os
+import re
 
 # Variables
 people = []
@@ -18,11 +19,18 @@ def check_input(prompt, answers):
 
 def clean_input(prompt):
     new_user_input_list = []
+    templist = []
     print(prompt)
     user_input_list = input("==>").split()
     for item in user_input_list:
         new_item = item.strip(",.?!")
         new_item = new_item.title()
+        if "_" in new_item:
+            temp2 = new_item.split("_")
+            for word in temp2:
+                templist.append(re.sub("ing$", "", word))
+            new_item = '_'.join(templist)
+        new_item = re.sub("ing$", "", new_item)
         new_user_input_list.append(new_item)
     return new_user_input_list
 
@@ -32,7 +40,7 @@ def get_from_module(file_name, folder, var):
 
 
 def initialize_characters():
-    for character_file in os.listdir('Characters'):
+    for character_file in os.listdir('Main\Characters'):
         if not character_file.startswith('_'):
             character = character_file.removesuffix('.py')
             people.append(character)
@@ -55,7 +63,7 @@ class NPC:
         for stat in self.stats_dictionary:
             exec('self.' + stat + ' = ' + str(self.stats_dictionary[stat]))
         # Sates
-        self.holding_hands_state = False
+        self.hold_hands_state = False
         # Methods
         self.methods = [method for method in dir(NPC) if method.startswith('__') is False]
         self.methods.remove("Stop")
@@ -73,21 +81,21 @@ class NPC:
                     return
 
     def Hold_Hands(self, approval=None, stop=None):
-        topic = "Holding_Hands"
-        if self.holding_hands_state and not stop:
+        topic = "Hold_Hands"
+        if self.hold_hands_state and not stop:
             return print("You are already holding hands with " + self.name)
-        elif not self.holding_hands_state and stop:
+        elif not self.hold_hands_state and stop:
             return print("You aren't holding " + self.name + "'s hand.")
-        elif self.holding_hands_state and stop:
-            self.holding_hands_state = False
+        elif self.hold_hands_state and stop:
+            self.hold_hands_state = False
             return print("You are no longer holding hands with " + self.name)
-        elif not self.holding_hands_state and not stop:
+        elif not self.hold_hands_state and not stop:
             if approval == ["Asked", True]:
-                self.holding_hands_state = True
+                self.hold_hands_state = True
                 return print("You are now holding hands with " + self.name + ".")
             elif approval == ["Asked", False]:
                 if check_input("Do it anyway?", yesno) == "Yes":
-                    self.holding_hands_state = True
+                    self.hold_hands_state = True
                     return print("You grab " + self.name + "'s hand she tries to move it away but you hold on.")
                 else:
                     return print("You don't hold hands with " + self.name)
@@ -95,7 +103,7 @@ class NPC:
                 if check_input("Ask first?", yesno) == "Yes":
                     self.Talk(topic)
                 else:
-                    self.holding_hands_state = True
+                    self.hold_hands_state = True
                     return print("You grab " + self.name + "'s hand. She tries to move it away but you hold on.")
 
     def Stop(self, function):
@@ -142,7 +150,7 @@ class PC:
                             return exec(keyword + "()")
                         elif keyword in self.methods:
                             pass
-                    except TypeError:
+                    except (TypeError, NameError):
                         pass
 
 
