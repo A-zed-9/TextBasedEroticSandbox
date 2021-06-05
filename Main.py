@@ -2,6 +2,7 @@
 import importlib
 import os
 import re
+import random
 
 # Variables
 people = []
@@ -56,6 +57,8 @@ class NPC:
         self.dialogue_intro = get_from_module(name, 'Characters', "dialogue_intro")
         self.dialogue_ask_to_continue = get_from_module(name, 'Characters', "dialogue_ask_to_continue")
         self.dialogue_continue = get_from_module(name, 'Characters', "dialogue_continue")
+        self.dialogue_initiate = get_from_module(name, 'Characters', "dialogue_initiate")
+        self.dialogue_rejected = get_from_module(name, 'Characters', "dialogue_rejected")
         self.dialogue_dictionary = get_from_module(name, 'Characters', "dialogue_dictionary")
         self.dialogue_topics = [topic for topic in self.dialogue_dictionary]
         # Stats
@@ -68,21 +71,43 @@ class NPC:
         self.methods = [method for method in dir(NPC) if method.startswith('__') is False]
         self.methods.remove("Stop")
 
-    def Talk(self, topic=None):
-        if not topic:
-            topic = check_input(self.dialogue_intro, self.dialogue_topics)
-        for condition in self.dialogue_dictionary[topic]:
-            if eval(condition):
-                exec(self.dialogue_dictionary[topic][condition])
-                if check_input(self.dialogue_ask_to_continue, yesno) == "Yes":
-                    topic = check_input(self.dialogue_continue, self.dialogue_topics)
-                    return self.Talk(topic=topic)
-                else:
-                    return
+    def __take_turn__(self):
+        self.my_turn = True
+        self.Talk(character_initiated=True)
+
+    def Talk(self, topic=None, character_initiated=False):
+        if character_initiated:
+            if check_input(self.dialogue_initiate, yesno) == "Yes":
+                possible_topics = []
+                for topic in self.dialogue_topics:
+                    for condition in self.dialogue_dictionary[topic]:
+                        if eval(condition):
+                            possible_topics.append(topic)
+                            break
+                topic = random.choice(possible_topics)
+                for condition in self.dialogue_dictionary[topic]:
+                    if eval(condition):
+                        return exec(self.dialogue_dictionary[topic][condition])
+            else:
+                return print(self.dialogue_rejected)
+        if not character_initiated:
+            if not topic:
+                topic = check_input(self.dialogue_intro, self.dialogue_topics)
+            for condition in self.dialogue_dictionary[topic]:
+                if eval(condition):
+                    exec(self.dialogue_dictionary[topic][condition])
+                    if check_input(self.dialogue_ask_to_continue, yesno) == "Yes":
+                        topic = check_input(self.dialogue_continue, self.dialogue_topics)
+                        return self.Talk(topic=topic)
+                    else:
+                        return
 
     def Hold_Hands(self, approval=None, stop=None):
         topic = "Hold_Hands"
-        if self.hold_hands_state and not stop:
+        if self.my_turn:
+            self.hold_hands_state = True
+            return print(self.name + " reaches for your hand.")
+        elif self.hold_hands_state and not stop:
             return print("You are already holding hands with " + self.name)
         elif not self.hold_hands_state and stop:
             return print("You aren't holding " + self.name + "'s hand.")
@@ -104,7 +129,7 @@ class NPC:
                     self.Talk(topic)
                 else:
                     self.hold_hands_state = True
-                    return print("You grab " + self.name + "'s hand. She tries to move it away but you hold on.")
+                    return print("You grab " + self.name + "'s hand. They try to move it away but you hold on.")
 
     def Stop(self, function):
         exec("self." + function + "(stop=True)")
@@ -113,7 +138,7 @@ class NPC:
 class PC:
     def __init__(self, name):
         self.name = name
-        self.methods = [method for method in dir(NPC) if method.startswith('__') is False]
+        self.methods = [method for method in dir(PC) if method.startswith('__') is False]
 
     def interpret_commands(self):
         keyword = ""
@@ -122,7 +147,8 @@ class PC:
         dictionary = {
             "Talk": "dialogue_topics",
             "Stop": "methods",
-            "Hold_Hands": None
+            "Hold_Hands": None,
+            "Wait": None
         }
         while True:
             answer = clean_input("What would you like to do?")
@@ -133,31 +159,39 @@ class PC:
                     subject = item
             if keyword:
                 for item in answer:
-                    if type(dictionary[keyword]) is str:
+                    if type(dictionary[keyword]) is str and subject:
                         if item in eval(subject + '.' + dictionary[keyword]):
                             argument = item
                     elif type(dictionary[keyword]) is list:
                         if item in dictionary[keyword]:
                             argument = item
-                    try:
-                        if subject and argument:
-                            return exec(subject + "." + keyword + "(" + "\"" + argument + "\"" + ")")
-                        elif subject and not argument:
-                            return exec(subject + "." + keyword + "()")
-                        elif not subject and argument:
-                            return exec(keyword + "(" + "\"" + argument + "\"" + ")")
-                        elif not subject and not argument:
-                            return exec(keyword + "()")
-                        elif keyword in self.methods:
-                            pass
-                    except (TypeError, NameError):
-                        pass
+                try:
+                    if keyword in self.methods:
+                        if not argument:
+                            return exec("self." + keyword + "()")
+                        if argument:
+                            return exec("self." + keyword + "(" + argument + ")")
+                    elif subject and argument:
+                        return exec(subject + "." + keyword + "(" + "\"" + argument + "\"" + ")")
+                    elif subject and not argument:
+                        return exec(subject + "." + keyword + "()")
+                    elif not subject and argument:
+                        return exec(keyword + "(" + "\"" + argument + "\"" + ")")
+                    elif not subject and not argument:
+                        return exec(keyword + "()")
+                except (TypeError, NameError):
+                    pass
+
+    def Wait(self):
+        pass
 
 
 # Main
 def game_loop():
     while True:
         Player.interpret_commands()
+        for character in people:
+            exec(character + ".__take_turn__()")
 
 
 initialize_characters()

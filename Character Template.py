@@ -4,6 +4,8 @@
 dialogue_intro = "This is what a character will say upon initiating dialogue."
 dialogue_ask_to_continue = "This is what a character will say when asking if the character wants to continue dialogue."
 dialogue_continue = "This is what a character will say when asking what topic a continued conversation should be about."
+dialogue_initiate = "This is what a character will say when asking the player to talk with them."
+dialogue_rejected = "This is what a character will say when the player declines to talk to them."
 dialogue_dictionary = {
     "Topic": {
         "condition == bool": "print(\"Text you want the character to say goes inside of the parentheses\".)\nprint("
@@ -27,6 +29,15 @@ dialogue_dictionary = {
         "True": "Set the last condition to True to create a default response, this response will be said if no "
                 "conditional responses are. You can only have one default response per topic. If you want a character "
                 "to always say the same thing for a topic this should be the only conditional in this topic. "
+    },
+    "Action": {
+        "condition == bool": "print(Each action must have a topic of the same name within the dictionary. When asking "
+                             "to do an action, either through talking or just through the action itself these "
+                             "conditions will be used to determine whether or not the action is carried through and "
+                             "so the conditions should always include:\")\nself.Action(approval=[\"Asked\","
+                             "True])\nprint(\"If the action should be performed if this condition is true. "
+                             "Or:\")\nself.Action(approval=[\"Asked\",False]\nprint(\"if the action should not be "
+                             "performed\") "
     }
 }
 # Stats (Note stats must have an initial value in order to be used by the character, even if that value is 0 (or None))
