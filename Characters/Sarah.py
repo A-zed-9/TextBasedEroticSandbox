@@ -15,15 +15,17 @@ dialogue_dictionary = {
         "self.friendship >= 10 or self.romance >= 5": "self.Hold_Hands(approval=[\"Asked\",True])",
         "not self.my_turn": "\nself.Hold_Hands(approval=[\"Asked\",False])",
         "self.hold_hands_state == True and self.friendship < 10 and self.romance < 10 and self.my_turn": "self.Stop("
-                                                                                                         "Hold_Hands)",
+                                                                                                         "\"Hold_Hands\")",
         "Ask": "Could I hold your hand?",
         "Reject": "self.__say__I don't think so.",
         "Rejected": "self.friendship -= 1\nself.__say__(\"Oh...sorry, I thought...\")",
-        "Stop": "Could we stop holding hands?"
+        "Stop": "Could we stop holding hands?",
+        "Force": "self.loneliness > 20",
     }
 }
 # Stats
 stats_dictionary = {
     "friendship": 10,
-    "romance": 0
+    "romance": 0,
+    "loneliness": 21
 }

@@ -91,7 +91,7 @@ class NPC:
 
     def Talk(self, topic=None, character_initiated=False):
         if character_initiated:
-            if self.__ask__(self.dialogue_initiate, yesno, say=True) == "Yes":
+            if self.__ask__(self.dialogue_initiate, yesno) == "Yes":
                 possible_topics = []
                 for topic in self.dialogue_topics:
                     for condition in self.dialogue_dictionary[topic]:
@@ -132,7 +132,10 @@ class NPC:
                 self.hold_hands_state = True
                 return print(self.name + " reaches for your hand.\nYou are now holding hands with " + self.name)
             else:
-                return exec(self.dialogue_dictionary[topic]["Rejected"])
+                if eval(self.dialogue_dictionary[topic]["Force"]):
+                    return print(self.name + " grabs your hand anyway, holding it tight.")
+                else:
+                    return exec(self.dialogue_dictionary[topic]["Rejected"])
         elif self.hold_hands_state and not stop:
             return print("You are already holding hands with " + self.name)
         elif not self.hold_hands_state and stop:
