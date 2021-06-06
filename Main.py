@@ -70,33 +70,50 @@ class NPC:
         # Methods
         self.methods = [method for method in dir(NPC) if method.startswith('__') is False]
         self.methods.remove("Stop")
+        self.my_turn = False
 
     def __take_turn__(self):
         self.my_turn = True
         self.Talk(character_initiated=True)
+        self.my_turn = False
+
+    def __say__(self, text):
+        print(self.name + " says:")
+        print(text)
+
+    def __ask__(self, prompt, answers):
+        while True:
+            print(self.name + " asks:")
+            answer = clean_input(prompt)
+            for word in answers:
+                if word in answer:
+                    return word
 
     def Talk(self, topic=None, character_initiated=False):
         if character_initiated:
-            if check_input(self.dialogue_initiate, yesno) == "Yes":
+            if self.__ask__(self.dialogue_initiate, yesno, say=True) == "Yes":
                 possible_topics = []
                 for topic in self.dialogue_topics:
                     for condition in self.dialogue_dictionary[topic]:
-                        if eval(condition):
-                            possible_topics.append(topic)
+                        try:
+                            if eval(condition):
+                                possible_topics.append(topic)
+                                break
+                        except NameError:
                             break
                 topic = random.choice(possible_topics)
                 for condition in self.dialogue_dictionary[topic]:
                     if eval(condition):
                         return exec(self.dialogue_dictionary[topic][condition])
             else:
-                return print(self.dialogue_rejected)
+                return self.__say__(self.dialogue_rejected)
         if not character_initiated:
             if not topic:
-                topic = check_input(self.dialogue_intro, self.dialogue_topics)
+                topic = self.__ask__(self.dialogue_intro, self.dialogue_topics)
             for condition in self.dialogue_dictionary[topic]:
                 if eval(condition):
                     exec(self.dialogue_dictionary[topic][condition])
-                    if check_input(self.dialogue_ask_to_continue, yesno) == "Yes":
+                    if self.__ask__(self.dialogue_ask_to_continue, yesno) == "Yes":
                         topic = check_input(self.dialogue_continue, self.dialogue_topics)
                         return self.Talk(topic=topic)
                     else:
@@ -105,8 +122,17 @@ class NPC:
     def Hold_Hands(self, approval=None, stop=None):
         topic = "Hold_Hands"
         if self.my_turn:
-            self.hold_hands_state = True
-            return print(self.name + " reaches for your hand.")
+            if stop:
+                if self.__ask__(self.dialogue_dictionary[topic]["Stop"], yesno) == "Yes":
+                    self.hold_hands_state = False
+                    return print("You are no longer holding hands with " + self.name)
+                else:
+                    print(self.name + " tries moving their hand away but you hold on.")
+            elif self.__ask__(self.dialogue_dictionary[topic]["Ask"], yesno) == "Yes":
+                self.hold_hands_state = True
+                return print(self.name + " reaches for your hand.\nYou are now holding hands with " + self.name)
+            else:
+                return exec(self.dialogue_dictionary[topic]["Rejected"])
         elif self.hold_hands_state and not stop:
             return print("You are already holding hands with " + self.name)
         elif not self.hold_hands_state and stop:
@@ -121,7 +147,7 @@ class NPC:
             elif approval == ["Asked", False]:
                 if check_input("Do it anyway?", yesno) == "Yes":
                     self.hold_hands_state = True
-                    return print("You grab " + self.name + "'s hand she tries to move it away but you hold on.")
+                    return print("You grab " + self.name + "'s hand. They try to move it away but you hold on.")
                 else:
                     return print("You don't hold hands with " + self.name)
             elif not approval:

@@ -26,18 +26,24 @@ dialogue_dictionary = {
         "condition == value": "self.function(\"parameter1\",\"parameter2\")\nprint(\"Functions, including character "
                               "methods (denoted by self.) can be called along side dialogue. For example this can be "
                               "used to call actions or change a characters stats.\")",
-        "True": "Set the last condition to True to create a default response, this response will be said if no "
+        "True": "print(\"Set the last condition to True to create a default response, this response will be said if no "
                 "conditional responses are. You can only have one default response per topic. If you want a character "
-                "to always say the same thing for a topic this should be the only conditional in this topic. "
+                "to always say the same thing for a topic this should be the only conditional in this topic. If this "
+                "is a topic that shouldn't be brought up by the character unless one of the conditions is met (such "
+                "as for actions) you should set this default statement to \"if not self.my_turn\" which will always "
+                "evaluate True if it is the players turn but not on the Characters turn.\") ",
+
     },
     "Action": {
-        "condition == bool": "print(Each action must have a topic of the same name within the dictionary. When asking "
-                             "to do an action, either through talking or just through the action itself these "
+        "condition == bool": "print(\"Each action must have a topic of the same name within the dictionary. When asking"
+                             " to do an action, either through talking or just through the action itself these "
                              "conditions will be used to determine whether or not the action is carried through and "
                              "so the conditions should always include:\")\nself.Action(approval=[\"Asked\","
                              "True])\nprint(\"If the action should be performed if this condition is true. "
                              "Or:\")\nself.Action(approval=[\"Asked\",False]\nprint(\"if the action should not be "
-                             "performed\") "
+                             "performed\") ",
+        "Keyword": "print(\"Actions have certain keywords for certain responses to actions these should be listed after"
+                   " all of the conditions so they don't attempt to be evaluated before the default response.\")",
     }
 }
 # Stats (Note stats must have an initial value in order to be used by the character, even if that value is 0 (or None))
