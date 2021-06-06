@@ -43,7 +43,31 @@ dialogue_dictionary = {
                              "Or:\")\nself.Action(approval=[\"Asked\",False]\nprint(\"if the action should not be "
                              "performed\") ",
         "Keyword": "print(\"Actions have certain keywords for certain responses to actions these should be listed after"
-                   " all of the conditions so they don't attempt to be evaluated before the default response.\")",
+                   "all of the conditions so they don't attempt to be evaluated before the default response. Listed "
+                   "below are all of the Keywords for the base game with a description of it's use as it's value.\")",
+        "Ask": "What the character says when asking to do the action",
+        "Accept": "self.__say__(\"What the character says when they accept to the action after being asked.\")",
+        "Reject": "self.__say__(\"What the character says when they dont accept to the action after being asked.\")",
+        "Rejected": "self.friendship -= 1\nself.__say__(\"What the character says when their attempt to initiate the "
+                    "action is rejected. As shown in this example, keywords that are executed (shown by the inclusion "
+                    "of self.__say__) can also change character stats. \")",
+        "Ask Stop": "What the character says when they ask the player to stop.",
+        "Force": "the condition that if met the character will attempt to force the player to do the action if they "
+                 "say no. For example: self.loneliness > 20. Set to False if the character should never force the "
+                 "character to do action (for characters that will never force the character to do anything this "
+                 "keyword should be set to False for all actions).",
+        "Forced": "self.__say__(\"What the character says when they are being forced to participate in the action.\")",
+        "Forcing": "self.__say__(\"What the character says if they are forcing the player to participate in the "
+                   "action.\")",
+        "CNC": "self.__say__(\"What the character says when they are forced to participate in the action, "
+               "but they would have consented if asked. If a character should not disguish between if they would have "
+               "of consented or not you can set this equal to \"self.[topic][\"Forced\"]\". \")",
+        "Stopped": "pass\nself.__say__(\"pass can be used so that nothing unique is said by the character and the "
+                   "action is handled as normal. This is what the character says when the action is stopped by the "
+                   "player.\")",
+        "In progress": "self.__say__(\"This is what the character says when the player tries to do an action that is "
+                       "already happening.\")",
+        "Initiated": "self.__say__(\"What the character says when they initiate the action and the player consents.\")"
     }
 }
 # Stats (Note stats must have an initial value in order to be used by the character, even if that value is 0 (or None))
