@@ -74,6 +74,7 @@ class NPC:
         for stat in self.stats_dictionary:
             exec('self.' + stat + ' = ' + str(self.stats_dictionary[stat]))
         # Sates
+        self.location = ""
         self.Hold_Hands_state = False
         # Methods
         self.methods = [method for method in dir(NPC) if method.startswith('__') is False]
@@ -194,13 +195,52 @@ class NPC:
             else:
                 for subtargets in self.appearance_dictionary[targets]:
                     if target == subtargets:
-                        return print("You look at " + self.name + "'s " + eval(self.appearance_dictionary[targets][target]["Description"]))
+                        return print("You look at " + self.name + "'s " + eval(
+                            self.appearance_dictionary[targets][target]["Description"]))
 
 
 class PC:
     def __init__(self, name):
+        # Name
         self.name = name
+        # Methods
         self.methods = [method for method in dir(PC) if method.startswith('__') is False]
+        # Appearance
+        self.appearance_dictionary = {
+            "Head": {
+                "Hair": {
+
+                },
+                "Eyes": {
+
+                },
+                "Ears": {
+
+                },
+                "Nose": {
+
+                },
+                "Mouth": {
+
+                },
+            },
+            "Arms": {
+                "Hands": {
+                    "Description": "",
+                }
+            },
+            "Body": {
+
+            },
+            "Lower Body": {
+
+            },
+            "Legs": {
+
+            },
+        }
+        # States
+        self.location = ""
 
     def interpret_commands(self):
         keyword = ""
