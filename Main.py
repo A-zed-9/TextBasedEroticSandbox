@@ -43,16 +43,60 @@ def get_from_module(file_name, folder, var):
 # Classes
 class World:
     def __init__(self):
+        # Locations
         self.location_dictionary = importlib.import_module('World').__getattribute__("location_dictionary")
         self.locations = []
         for location in self.location_dictionary:
             self.locations.append(location)
+        # Characters
         self.people = []
         for character_file in os.listdir('Main\Characters'):
             if not character_file.startswith('_'):
                 character = character_file.removesuffix('.py')
                 self.people.append(character)
                 exec("global " + character + "\n" + character + " = NPC(\"" + character + "\")")
+        # Date and Time
+        self.year = 1
+        self.months = ["January", "February", "March", "April", "May","June", "July", "August", "September", "October", "November", "December"]
+        self.month = "January"
+        self.day = 1
+        self.weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        self.weekday = "Monday"
+        self.hour = 8
+        self.minute = 00
+        self.AM_PM = "AM"
+
+    def update_time(self, years, months, days, hours, minutes):
+        self.minute += minutes
+        while self.minute > 59:
+            self.minute -= 60
+            hours += 1
+        self.hour += hours
+        while self.hour > 12:
+            self.hour -= 12
+            if self.AM_PM == "AM":
+                self.AM_PM = "PM"
+            elif self.AM_PM == "PM":
+                self.AM_PM = "AM"
+                days += 1
+        index = self.weekdays.index(self.weekday)
+        index += days
+        while index > 6:
+            index -= 7
+        self.weekday = self.weekdays[index]
+        self.day += days
+        while self.day > 30:
+            self.day -= 30
+            months += 1
+        index = self.months.index(self.month)
+        index += months
+        while index > 11:
+            index -= 12
+            years += 1
+        self.month = self.months[index]
+        self.year += years
+        print("It is " + str(self.hour) + ":" + str(self.minute).zfill(2) + " " + self.AM_PM + " " + self.weekday + ". "
+              "\nThe date is: " + str(self.day) + " " + self.month + " " + str(self.year) + ".")
 
 
 class NPC:
@@ -74,6 +118,8 @@ class NPC:
         self.dialogue_rejected = get_from_module(name, 'Characters', "dialogue_rejected")
         self.dialogue_dictionary = get_from_module(name, 'Characters', "dialogue_dictionary")
         self.dialogue_topics = [topic for topic in self.dialogue_dictionary]
+        # Schedule
+        self.schedule = get_from_module(name, 'Characters', "schedule")
         # Stats
         self.stats_dictionary = get_from_module(name, 'Characters', "stats_dictionary")
         for stat in self.stats_dictionary:
@@ -145,7 +191,7 @@ class NPC:
             elif self.__ask__(self.dialogue_dictionary[topic]["Ask"], yesno) == "Yes":
                 self.Hold_Hands_state = True
                 exec(self.dialogue_dictionary[topic]["Initiated"])
-                return print(self.name + " reaches for your hand.\nYou are now holding hands with " + self.name)
+                return print(self.name + " reaches for your hand.\nYou are now holding hands with " + self.name + ".")
             else:
                 if eval(self.dialogue_dictionary[topic]["Force"]):
                     exec(self.dialogue_dictionary[topic]["Forcing"])
@@ -292,7 +338,7 @@ class PC:
                     pass
 
     def Wait(self):
-        print("Waiting")
+        World.update_time(1, 1, 0, 24, 0)
 
     def Walk(self, destination):
         if self.location == destination:

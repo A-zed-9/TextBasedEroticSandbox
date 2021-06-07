@@ -82,6 +82,30 @@ dialogue_dictionary = {
                      "self.__say__(\"Yay!\")",
     }
 }
+# Schedule
+schedule = {
+    "Monday": {
+
+    },
+    "Tuesday": {
+
+    },
+    "Wednesday": {
+
+    },
+    "Thursday": {
+
+    },
+    "Friday": {
+
+    },
+    "Saturday": {
+
+    },
+    "Sunday": {
+
+    },
+}
 # Stats
 stats_dictionary = {
     "friendship": 0,
