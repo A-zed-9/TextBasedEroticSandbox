@@ -84,7 +84,7 @@ dialogue_dictionary = {
 }
 # Stats
 stats_dictionary = {
-    "friendship": 10,
+    "friendship": 0,
     "romance": 0,
     "loneliness": 0,
 }

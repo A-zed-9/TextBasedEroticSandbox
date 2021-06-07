@@ -5,7 +5,6 @@ import re
 import random
 
 # Variables
-people = []
 yesno = ["Yes", "No"]
 
 
@@ -41,15 +40,21 @@ def get_from_module(file_name, folder, var):
     return importlib.import_module('.' + file_name, folder).__getattribute__(var)
 
 
-def initialize_characters():
-    for character_file in os.listdir('Main\Characters'):
-        if not character_file.startswith('_'):
-            character = character_file.removesuffix('.py')
-            people.append(character)
-            exec("global " + character + "\n" + character + " = NPC(\"" + character + "\")")
-
-
 # Classes
+class World:
+    def __init__(self):
+        self.location_dictionary = importlib.import_module('World').__getattribute__("location_dictionary")
+        self.locations = []
+        for location in self.location_dictionary:
+            self.locations.append(location)
+        self.people = []
+        for character_file in os.listdir('Main\Characters'):
+            if not character_file.startswith('_'):
+                character = character_file.removesuffix('.py')
+                self.people.append(character)
+                exec("global " + character + "\n" + character + " = NPC(\"" + character + "\")")
+
+
 class NPC:
     def __init__(self, name):
         # Name
@@ -251,14 +256,15 @@ class PC:
             "Stop": "methods",
             "Hold_Hands": None,
             "Wait": None,
-            "Look": "look_args"
+            "Look": "look_args",
+            "Walk": World.locations,
         }
         while True:
             answer = clean_input("What would you like to do?")
             for item in answer:
                 if item in dictionary and not keyword:
                     keyword = item
-                if item in people and not subject:
+                if item in World.people and not subject:
                     subject = item
             if keyword:
                 for item in answer:
@@ -273,7 +279,7 @@ class PC:
                         if not argument:
                             return exec("self." + keyword + "()")
                         if argument:
-                            return exec("self." + keyword + "(" + argument + ")")
+                            return exec("self." + keyword + "(" + "\"" + argument + "\"" + ")")
                     elif subject and argument:
                         return exec(subject + "." + keyword + "(" + "\"" + argument + "\"" + ")")
                     elif subject and not argument:
@@ -286,17 +292,24 @@ class PC:
                     pass
 
     def Wait(self):
-        pass
+        print("Waiting")
+
+    def Walk(self, destination):
+        if self.location == destination:
+            print("You are already there.")
+        else:
+            self.location = destination
+            print("You arrive at " + World.location_dictionary[self.location]["In Sentence"] + ".")
 
 
 # Main
 def game_loop():
     while True:
         Player.interpret_commands()
-        for character in people:
+        for character in World.people:
             exec(character + ".__take_turn__()")
 
 
-initialize_characters()
+World = World()
 Player = PC("player")
 game_loop()
