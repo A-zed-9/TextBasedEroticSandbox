@@ -80,30 +80,527 @@ dialogue_dictionary = {
                      "elif self.friendship >= 20 and self.romance < 5:\n"
                      "  self.romance += 1\n"
                      "self.__say__(\"Yay!\")",
-    }
+    },
 }
 # Schedule
 schedule = {
     "Monday": {
-
+        "1AM": {
+            "True": "Park",
+        },
+        "2AM": {
+            "True": "Park",
+        },
+        "3AM": {
+            "True": "Park",
+        },
+        "4AM": {
+            "True": "Park",
+        },
+        "5AM": {
+            "True": "Park",
+        },
+        "6AM": {
+            "True": "Park",
+        },
+        "7AM": {
+            "True": "Park",
+        },
+        "8AM": {
+            "True": "Park",
+        },
+        "9AM": {
+            "True": "Park",
+        },
+        "10AM": {
+            "True": "Park",
+        },
+        "11AM": {
+            "True": "Park",
+        },
+        "12AM": {
+            "True": "Park",
+        },
+        "1PM": {
+            "True": "Park",
+        },
+        "2PM": {
+            "True": "Park",
+        },
+        "3PM": {
+            "True": "Park",
+        },
+        "4PM": {
+            "True": "Park",
+        },
+        "5PM": {
+            "True": "Park",
+        },
+        "6PM": {
+            "True": "Park",
+        },
+        "7PM": {
+            "True": "Park",
+        },
+        "8PM": {
+            "True": "Park",
+        },
+        "9PM": {
+            "True": "Park",
+        },
+        "10PM": {
+            "True": "Park",
+        },
+        "11PM": {
+            "True": "Park",
+        },
+        "12PM": {
+            "True": "Park",
+        },
     },
     "Tuesday": {
-
+        "1AM": {
+            "True": "Park",
+        },
+        "2AM": {
+            "True": "Park",
+        },
+        "3AM": {
+            "True": "Park",
+        },
+        "4AM": {
+            "True": "Park",
+        },
+        "5AM": {
+            "True": "Park",
+        },
+        "6AM": {
+            "True": "Park",
+        },
+        "7AM": {
+            "True": "Park",
+        },
+        "8AM": {
+            "True": "Park",
+        },
+        "9AM": {
+            "True": "Park",
+        },
+        "10AM": {
+            "True": "Park",
+        },
+        "11AM": {
+            "True": "Park",
+        },
+        "12AM": {
+            "True": "Park",
+        },
+        "1PM": {
+            "True": "Park",
+        },
+        "2PM": {
+            "True": "Park",
+        },
+        "3PM": {
+            "True": "Park",
+        },
+        "4PM": {
+            "True": "Park",
+        },
+        "5PM": {
+            "True": "Park",
+        },
+        "6PM": {
+            "True": "Park",
+        },
+        "7PM": {
+            "True": "Park",
+        },
+        "8PM": {
+            "True": "Park",
+        },
+        "9PM": {
+            "True": "Park",
+        },
+        "10PM": {
+            "True": "Park",
+        },
+        "11PM": {
+            "True": "Park",
+        },
+        "12PM": {
+            "True": "Park",
+        },
     },
     "Wednesday": {
-
+        "1AM": {
+            "True": "Park",
+        },
+        "2AM": {
+            "True": "Park",
+        },
+        "3AM": {
+            "True": "Park",
+        },
+        "4AM": {
+            "True": "Park",
+        },
+        "5AM": {
+            "True": "Park",
+        },
+        "6AM": {
+            "True": "Park",
+        },
+        "7AM": {
+            "True": "Park",
+        },
+        "8AM": {
+            "True": "Success",
+        },
+        "9AM": {
+            "True": "Park",
+        },
+        "10AM": {
+            "True": "Park",
+        },
+        "11AM": {
+            "True": "Park",
+        },
+        "12AM": {
+            "True": "Park",
+        },
+        "1PM": {
+            "True": "Park",
+        },
+        "2PM": {
+            "True": "Park",
+        },
+        "3PM": {
+            "True": "Park",
+        },
+        "4PM": {
+            "True": "Park",
+        },
+        "5PM": {
+            "True": "Park",
+        },
+        "6PM": {
+            "True": "Park",
+        },
+        "7PM": {
+            "True": "Park",
+        },
+        "8PM": {
+            "True": "Park",
+        },
+        "9PM": {
+            "True": "Park",
+        },
+        "10PM": {
+            "True": "Park",
+        },
+        "11PM": {
+            "True": "Park",
+        },
+        "12PM": {
+            "True": "Park",
+        },
     },
     "Thursday": {
-
+        "1AM": {
+            "True": "Park",
+        },
+        "2AM": {
+            "True": "Park",
+        },
+        "3AM": {
+            "True": "Park",
+        },
+        "4AM": {
+            "True": "Park",
+        },
+        "5AM": {
+            "True": "Park",
+        },
+        "6AM": {
+            "True": "Park",
+        },
+        "7AM": {
+            "True": "Park",
+        },
+        "8AM": {
+            "True": "Park",
+        },
+        "9AM": {
+            "True": "Park",
+        },
+        "10AM": {
+            "True": "Park",
+        },
+        "11AM": {
+            "True": "Park",
+        },
+        "12AM": {
+            "True": "Park",
+        },
+        "1PM": {
+            "True": "Park",
+        },
+        "2PM": {
+            "True": "Park",
+        },
+        "3PM": {
+            "True": "Park",
+        },
+        "4PM": {
+            "True": "Park",
+        },
+        "5PM": {
+            "True": "Park",
+        },
+        "6PM": {
+            "True": "Park",
+        },
+        "7PM": {
+            "True": "Park",
+        },
+        "8PM": {
+            "True": "Park",
+        },
+        "9PM": {
+            "True": "Park",
+        },
+        "10PM": {
+            "True": "Park",
+        },
+        "11PM": {
+            "True": "Park",
+        },
+        "12PM": {
+            "True": "Park",
+        },
     },
     "Friday": {
-
+        "1AM": {
+            "True": "Park",
+        },
+        "2AM": {
+            "True": "Park",
+        },
+        "3AM": {
+            "True": "Park",
+        },
+        "4AM": {
+            "True": "Park",
+        },
+        "5AM": {
+            "True": "Park",
+        },
+        "6AM": {
+            "True": "Park",
+        },
+        "7AM": {
+            "True": "Park",
+        },
+        "8AM": {
+            "True": "Park",
+        },
+        "9AM": {
+            "True": "Park",
+        },
+        "10AM": {
+            "True": "Park",
+        },
+        "11AM": {
+            "True": "Park",
+        },
+        "12AM": {
+            "True": "Park",
+        },
+        "1PM": {
+            "True": "Park",
+        },
+        "2PM": {
+            "True": "Park",
+        },
+        "3PM": {
+            "True": "Park",
+        },
+        "4PM": {
+            "True": "Park",
+        },
+        "5PM": {
+            "True": "Park",
+        },
+        "6PM": {
+            "True": "Park",
+        },
+        "7PM": {
+            "True": "Park",
+        },
+        "8PM": {
+            "True": "Park",
+        },
+        "9PM": {
+            "True": "Park",
+        },
+        "10PM": {
+            "True": "Park",
+        },
+        "11PM": {
+            "True": "Park",
+        },
+        "12PM": {
+            "True": "Park",
+        },
     },
     "Saturday": {
-
+        "1AM": {
+            "True": "Park",
+        },
+        "2AM": {
+            "True": "Park",
+        },
+        "3AM": {
+            "True": "Park",
+        },
+        "4AM": {
+            "True": "Park",
+        },
+        "5AM": {
+            "True": "Park",
+        },
+        "6AM": {
+            "True": "Park",
+        },
+        "7AM": {
+            "True": "Park",
+        },
+        "8AM": {
+            "True": "Park",
+        },
+        "9AM": {
+            "True": "Park",
+        },
+        "10AM": {
+            "True": "Park",
+        },
+        "11AM": {
+            "True": "Park",
+        },
+        "12AM": {
+            "True": "Park",
+        },
+        "1PM": {
+            "True": "Park",
+        },
+        "2PM": {
+            "True": "Park",
+        },
+        "3PM": {
+            "True": "Park",
+        },
+        "4PM": {
+            "True": "Park",
+        },
+        "5PM": {
+            "True": "Park",
+        },
+        "6PM": {
+            "True": "Park",
+        },
+        "7PM": {
+            "True": "Park",
+        },
+        "8PM": {
+            "True": "Park",
+        },
+        "9PM": {
+            "True": "Park",
+        },
+        "10PM": {
+            "True": "Park",
+        },
+        "11PM": {
+            "True": "Park",
+        },
+        "12PM": {
+            "True": "Park",
+        },
     },
     "Sunday": {
-
+        "1AM": {
+            "True": "Park",
+        },
+        "2AM": {
+            "True": "Park",
+        },
+        "3AM": {
+            "True": "Park",
+        },
+        "4AM": {
+            "True": "Park",
+        },
+        "5AM": {
+            "True": "Park",
+        },
+        "6AM": {
+            "True": "Park",
+        },
+        "7AM": {
+            "True": "Park",
+        },
+        "8AM": {
+            "True": "Park",
+        },
+        "9AM": {
+            "True": "Park",
+        },
+        "10AM": {
+            "True": "Park",
+        },
+        "11AM": {
+            "True": "Park",
+        },
+        "12AM": {
+            "True": "Park",
+        },
+        "1PM": {
+            "True": "Park",
+        },
+        "2PM": {
+            "True": "Park",
+        },
+        "3PM": {
+            "True": "Park",
+        },
+        "4PM": {
+            "True": "Park",
+        },
+        "5PM": {
+            "True": "Park",
+        },
+        "6PM": {
+            "True": "Park",
+        },
+        "7PM": {
+            "True": "Park",
+        },
+        "8PM": {
+            "True": "Park",
+        },
+        "9PM": {
+            "True": "Park",
+        },
+        "10PM": {
+            "True": "Park",
+        },
+        "11PM": {
+            "True": "Park",
+        },
+        "12PM": {
+            "True": "Park",
+        },
     },
 }
 # Stats

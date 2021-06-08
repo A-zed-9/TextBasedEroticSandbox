@@ -57,7 +57,8 @@ class World:
                 exec("global " + character + "\n" + character + " = NPC(\"" + character + "\")")
         # Date and Time
         self.year = 1
-        self.months = ["January", "February", "March", "April", "May","June", "July", "August", "September", "October", "November", "December"]
+        self.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+                       "November", "December"]
         self.month = "January"
         self.day = 1
         self.weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
@@ -96,7 +97,8 @@ class World:
         self.month = self.months[index]
         self.year += years
         print("It is " + str(self.hour) + ":" + str(self.minute).zfill(2) + " " + self.AM_PM + " " + self.weekday + ". "
-              "\nThe date is: " + str(self.day) + " " + self.month + " " + str(self.year) + ".")
+                                                                                                                    "\nThe date is: " + str(
+            self.day) + " " + self.month + " " + str(self.year) + ".")
 
 
 class NPC:
@@ -149,8 +151,11 @@ class NPC:
                 if word in answer:
                     return word
 
-    def __describe__(self, text):
-        pass
+    def __update_location__(self):
+        for condition in self.schedule[World.weekday][str(World.hour) + World.AM_PM]:
+            if eval(condition):
+                self.location = self.schedule[World.weekday][str(World.hour) + World.AM_PM][condition]
+                return
 
     def Talk(self, topic=None, character_initiated=False):
         if character_initiated:
@@ -354,8 +359,16 @@ def game_loop():
         Player.interpret_commands()
         for character in World.people:
             exec(character + ".__take_turn__()")
+        for character in World.people:
+            exec(character + ".__update_location__()")
+
+
+# Tutorial
+def tutorial():
+    print(open('Main/Tutorial.txt', "r").read())
+    game_loop()
 
 
 World = World()
 Player = PC("player")
-game_loop()
+tutorial()

@@ -1,0 +1,58 @@
+Welcome to the proof of concept release of my game!
+As a proof of concept, the game is currently extremely barebones, even more so then an alpha release.
+The point of this release, as a proof of concept, is to flesh out some of the core concepts I hope to explore in making this game.
+For game systems this primarily relates to:
+1. Keyword based user input
+With this system I hope to allow for a text based game that is very flexible in what grammar the player can use, such as whether or not they capitalize a noun, what punctuation, if any they use, or even different sentence order.
+For example in this current release while the script listens for keyword, subject and then arguments in that order, players are able to structure their sentences in any order.
+As well players are not limited to the keywords the script is looking for, but can add their own language to the sentence to make it their own. For example instead of simply typing "Keyword Subject" the player can instead type "Do Keyword with Subject." or add any other additional words.
+2. Conditional based interactions
+Currently most interactions between the player and the characters, and the characters with the environment (in the form of schedules) is through the use of conditional statements. If X do Y.
+Having interactions be based on conditions allows for character actions and responses to be based on lots of different data, whether it be the in game date and time for schedules, or the characters relationship to the character or even what other characters are currently doing, all of this data can be used to create unique character responses, especially when these different data types are used in tandem.
+3. Semi-arbitrary code execution
+As the game stands now a large chunk of "the game" or the data it uses (primarily character data) is actually string data that is executed from files outside of the main code file.
+The reason for this is to have uniform dictionary calls for all characters for the same event, so doing an actions with one character calls the same data field when the action is done with another character (the only difference being what character dictionary the field is looked up in.)
+Storing the code to be executed here then allows for great variance between characters responses to the interaction, especially in what functions they call.
+So while one character may call the "Say" function another character may call a completely different function.
+This point also leads into my next:
+4. Modularity
+While the degree to which this project will be modular is definitely something I'm unsure of currently.
+I am currently attempting to structure the code in such a way that while there is a base "Engine" in the form of keywords and their functions in the main script, I also most if not all of the specifics for the characters and for the locations to be accessed from the character files and world file.
+With this I hope to eventually develop a somewhat easy to understand process by which players can create an import their own characters, and own locations.
+While additional functionality in the form of players adding their own keywords and functions is something that sounds good to me, this is not something I am prioritizing while writing the code at the moment.
+In terms of story and other non-code focused elements of the game my core concepts are:
+1. Openworld/Sandbox/Emergent gameplay
+This game is meant to allow for players to create their own stories through their own interactions with the characters.
+So while characters will have certain set behaviors (such as their schedules) through the previously mentioned conditional based interactions I hope to create "emergent" gameplay through different elements and characters interacting.
+2. Primarily Textbased
+While my next goal is to create a "GUI" in the form of text boxes/input boxes etc I do not intend to create any sort of "art" for the game. Instead I want to focus solely on the text of the game, in both descriptions and dialogue.
+With that said I do hope to eventually create support for players using their own art. (My main idea is allowing a character picture to be associated with a character object which would have an area to be displayed in this GUI update.)
+3. More then just "erotic" and more then just a dating sim.
+While I do intend for this game to be "erotic" and it does have dating sim like features, I hope that this game can be more then just those things.
+While the current focus is to continue fleshing out characters and actions to a large extent in the future I hope to also create an interesting world one can "live in" with just as much detail in "mundane" interactions as erotic ones.
+
+At this current stage my goals are:
+1. Gauge interest in this game in both it's current form and for what it wants to be.
+2. Ask for assistance in the form of: reporting bugs, reporting typos or weird grammar, and suggestions for what elements of the game I should be focusing on.
+
+If you would like to contact me to share any bugs, typos, feedback, or for any other reason feel free to at gwen.isilith@gmail.com.
+Thanks for reading now here's how to play the game:
+
+Simply type what you would like to do when prompted.
+Current Keywords include: Talk, Hold_Hands, Wait, Walk
+Current Characters include: Sarah
+Current Locations include: Park, Home
+Current conversation topics include: Hold_Hands, Weekend
+Multi word keywords (words that include _) you must type out the _ instead of a space.
+You can add any punctuation or capitalization (or lack there of) to any words, as well you can also add "ing" or "'s" to any words and it will still recognize it (this includes within mutli word keywords such as "Holding_Hands").
+You can use any order of words.
+List of all currently acceptable sentences (not including different orderings or adding different filler words):
+Talk Sarah Hold_Hands
+Talk Sarah Weekend
+Talk Sarah
+Hold_Hands Sarah
+Wait
+Walk Park
+Walk Home
+Currently the game consists of a loop where you and sarah take turns taking actions. currently Sarah's turn consists of here choosing a random topic from her dialogue dictionary to discuss with you (if its conditions are met).
+You can raise here friendship and romance in order to consensually hold her hand (or get her to ask you to hold hands) but you can also force her to hold your hand whenever you like (though she'll be upset).
